@@ -4,13 +4,20 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { PantallaComponent } from './pantalla/pantalla.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PantallaComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    MatCardModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
