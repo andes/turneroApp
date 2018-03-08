@@ -1,3 +1,68 @@
-<p>
-  pantalla works!
-</p>
+<!-- <mat-card style="text-align: center;">
+
+    <a routerLink="/configuracion">
+        <mat-icon style=" float: right;
+        font-size: 34px;
+        color: black;">settings</mat-icon>
+    </a>
+    {{fecha}}
+    <br> {{now}}
+
+</mat-card> -->
+
+<div class="row">
+    <div class="col s6 m6">
+        <div  *ngIf='turno.paciente.nombre' class="card" [ngClass]="{'blink-5': audio === true}">
+            <div class="card-content " style="text-align:center">
+
+                <h1>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</h1>
+                <span *ngIf='turno.espacioFisico !== null'>
+                    <p>Presentarse a:</p>
+                    <h2> {{turno.espacioFisico}}</h2>
+                </span>
+                <p>con el doctor/a</p>
+                <h1>{{turno.profesional.nombre}}
+                    <br> {{turno.profesional.apellido}}</h1>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col s6 m6">
+        <video autoplay muted loop style="    width: 100%;">
+            <source src="./assets/andes.mp4" type="video/mp4">
+        </video>
+    </div>
+
+
+</div>
+
+<!-- <mat-grid-list cols="12" rowHeight="100px" style="margin-top:1%">
+    <mat-grid-tile [colspan]="6" [rowspan]="6">
+        <mat-card style="text-align: center; font-size: 23px;" [ngClass]="{'blink-5': audio === true}">
+            <h1>{{turno.paciente.nombre}} {{turno.paciente.apellido}}</h1>
+            <p>Presentarse a:</p>
+            <h2> {{turno.espacioFisico}}</h2>
+            <p>con el doctor/a</p>
+            <h1>{{turno.profesional.nombre}}
+                <br> {{turno.profesional.apellido}}</h1>
+
+        </mat-card> -->
+<!-- <button (click)='prueba()'>apretame</button> -->
+
+<!-- </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="6" [rowspan]="6">
+        <video autoplay muted loop>
+            <source src="./assets/andes.mp4" type="video/mp4">
+        </video>
+
+    </mat-grid-tile>
+
+</mat-grid-list> -->
+
+<audio *ngIf="audio === true" autoplay>
+    <source src="./assets/audio/ding-dong.mp3">
+    <source src="./assets/audio/ding-dong.ogg">
+    <source src="./assets/audio/ding-dong.m4a">
+</audio>
