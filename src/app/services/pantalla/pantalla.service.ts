@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { HttpClient, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { AppSettings } from './../../app.settings';
 
 import * as io from 'socket.io-client';
 import { debug } from 'util';
@@ -13,7 +14,8 @@ export class PantallaService {
 
   private url = 'http://192.168.0.130:3002';
   private socket;
-
+  private totalTurnos = AppSettings.API_ENDPOINT + '/modules/turnero/busqueda';  // URL to web api
+  
   constructor(private http: HttpClient) {
 
   }
@@ -54,6 +56,14 @@ getTurno(datos): any {
     });
     return observable;
 }
+
+
+getTotalTurnos(params): any {
+    return this.http.get(this.totalTurnos,{params: params});
+    
+}
+
+
   // getNumero(nombrePantalla: any): any {
   //   let observable = new Observable(observer => {
   //     debugger;

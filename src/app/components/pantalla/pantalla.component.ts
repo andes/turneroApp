@@ -35,6 +35,7 @@ export class PantallaComponent implements OnInit {
   private fecha;
   public audio = false;
   public now;
+  public ultimosTurnos = [];
   connection;
 
   ngOnInit() {
@@ -64,6 +65,8 @@ export class PantallaComponent implements OnInit {
     };
 
     this.configuracionPantallaService.get({nombrePantalla: nombreP}).subscribe(datos => {
+
+    this.traeTurnos()
       if (datos) {
         const prest =  datos[0].prestaciones;
         prest.forEach(element => {
@@ -84,16 +87,37 @@ export class PantallaComponent implements OnInit {
           } else {
             this.turno.espacioFisico = 'Consultar';
           }
+          var turnoAlista = {
+            horaInicio: turnoEntrante.horaInicio,
+            horaLlamada: turnoEntrante.horaLlamada,
+            profesional: [turnoEntrante.profesional],
+            paciente:[turnoEntrante.paciente],
+            espacioFisico: this.turno.espacioFisico
+          }
+          var index = this.ultimosTurnos.findIndex(obj => obj.paciente[0].id === turnoAlista.paciente[0].id);
+          console.log(index)
+          if (index === -1) {
+            this.ultimosTurnos.push(turnoAlista)
+            this.ultimosTurnos.splice(0,1);
+            console.log(this.ultimosTurnos)
+          }
+
         }
         setTimeout(() => {
           this.audio = false;
       }, 2200);
 
 
+
+      // var index = this.ultimosTurnos.findIndex(obj => obj.paciente === element.pantalla);
+      // if (index !== -1) {
+         
+      // }
+
+
       });
 
     });
-
 
   }
 
@@ -103,6 +127,13 @@ export class PantallaComponent implements OnInit {
     setTimeout(() => {
       this.audio = false;
   }, 2200);
+  }
+
+  traeTurnos(){
+    this.pantallaService.getTotalTurnos({limit: 3}).subscribe(data =>{
+      console.log("aca",data)
+      this.ultimosTurnos = data;
+    })
   }
 
 
