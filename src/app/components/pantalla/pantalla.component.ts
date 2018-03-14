@@ -35,7 +35,10 @@ export class PantallaComponent implements OnInit {
   private fecha;
   public audio = false;
   public now;
+  public turnoAlista;
+  public sinNombre = false;
   public ultimosTurnos = [];
+  public cantidadLlamados = 1;
   connection;
 
   ngOnInit() {
@@ -53,7 +56,7 @@ export class PantallaComponent implements OnInit {
 
     const timeoutId = setInterval(() => {
       const time = new Date();
-      this.now = ('0' + time.getHours()).substr(-2) + ':' + ('0' + time.getMinutes()).substr(-2) ;
+      this.now = ('0' + time.getHours()).substr(-2) + ':' + ('0' + time.getMinutes()).substr(-2);
       // this.now = ('0'+time.getHours()).substr(-2) +':'+ ('0'+time.getMinutes()).substr(-2) +':'+ ('0'+time.getSeconds()).substr(-2);
 
     }, 1000);
@@ -64,17 +67,38 @@ export class PantallaComponent implements OnInit {
       prestaciones: []
     };
 
-    this.configuracionPantallaService.get({nombrePantalla: nombreP}).subscribe(datos => {
+    this.configuracionPantallaService.get({ nombrePantalla: nombreP }).subscribe(datos => {
 
-    this.traeTurnos()
+      // this.traeTurnos()
       if (datos) {
-        const prest =  datos[0].prestaciones;
+        const prest = datos[0].prestaciones;
         prest.forEach(element => {
-         datosPantalla.prestaciones.push(element.conceptId);
+          datosPantalla.prestaciones.push(element.conceptId);
         });
       }
 
       this.pantallaService.getTurno(datosPantalla).subscribe(turnoEntrante => {
+
+        if (this.sinNombre === true) {
+          if (turnoEntrante.paciente.id === this.turnoAlista.paciente[0].id) {
+            if (this.cantidadLlamados < 3) {
+              this.cantidadLlamados++;
+            }
+
+          } else {
+            this.cantidadLlamados = 1;
+          }
+          const index = this.ultimosTurnos.findIndex(obj => obj.paciente[0].id === this.turnoAlista.paciente[0].id);
+          if (index === -1) {
+            if (turnoEntrante.paciente.id !== this.turnoAlista.paciente[0].id) {
+              this.ultimosTurnos.push(this.turnoAlista);
+              if (this.ultimosTurnos.length === 4) {
+                this.ultimosTurnos.splice(0, 1);
+              }
+            }
+
+          }
+        }
         this.turno.espacioFisico = '';
         if (turnoEntrante) {
           this.audio = true;
@@ -87,32 +111,29 @@ export class PantallaComponent implements OnInit {
           } else {
             this.turno.espacioFisico = 'Consultar';
           }
-          var turnoAlista = {
+
+
+
+          this.turnoAlista = {
             horaInicio: turnoEntrante.horaInicio,
             horaLlamada: turnoEntrante.horaLlamada,
             profesional: [turnoEntrante.profesional],
-            paciente:[turnoEntrante.paciente],
+            paciente: [turnoEntrante.paciente],
             espacioFisico: this.turno.espacioFisico
-          }
-          var index = this.ultimosTurnos.findIndex(obj => obj.paciente[0].id === turnoAlista.paciente[0].id);
-          console.log(index)
-          if (index === -1) {
-            this.ultimosTurnos.push(turnoAlista)
-            this.ultimosTurnos.splice(0,1);
-            console.log(this.ultimosTurnos)
-          }
+          };
+          this.sinNombre = true;
 
         }
         setTimeout(() => {
           this.audio = false;
-      }, 2200);
+        }, 2200);
 
 
 
-      // var index = this.ultimosTurnos.findIndex(obj => obj.paciente === element.pantalla);
-      // if (index !== -1) {
-         
-      // }
+        // var index = this.ultimosTurnos.findIndex(obj => obj.paciente === element.pantalla);
+        // if (index !== -1) {
+
+        // }
 
 
       });
@@ -126,14 +147,13 @@ export class PantallaComponent implements OnInit {
     this.audio = true;
     setTimeout(() => {
       this.audio = false;
-  }, 2200);
+    }, 2200);
   }
 
-  traeTurnos(){
-    this.pantallaService.getTotalTurnos({limit: 3}).subscribe(data =>{
-      console.log("aca",data)
+  traeTurnos() {
+    this.pantallaService.getTotalTurnos({ limit: 3 }).subscribe(data => {
       this.ultimosTurnos = data;
-    })
+    });
   }
 
 

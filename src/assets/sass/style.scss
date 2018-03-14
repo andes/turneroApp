@@ -1,0 +1,700 @@
+/*!
+Theme Name: HPN
+Theme URI: http://underscores.me/
+Author: Hospital Provincial Neuquén
+Author URI: http://www.hospitalneuquen.org.ar/
+Description: Sitio oficial del Hospital Provincial de Neuquén \"Dr. Eduardo Castro Rendón\"
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: hpn
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+*/
+/*--------------------------------------------------------------
+>>> INDICE:
+----------------------------------------------------------------
+# Normalize
+# Layout
+# Dimensiones
+# Colores
+# Tipografía
+# Elements
+# Forms
+# Navigation
+	## Links
+	## Menus
+# Accessibility
+# Alignments
+# Clearings
+# Widgets
+# Content
+	## Posts and pages
+	## Comments
+# Infinite scroll
+# Media
+	## Captions
+	## Galleries
+--------------------------------------------------------------*/
+
+@import "variables-site/_colors";
+
+
+/*--------------------------------------------------------------
+# Normalize
+--------------------------------------------------------------*/
+html {
+	font-family: sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+main,
+menu,
+nav,
+section,
+summary {
+	display: block;
+}
+
+audio,
+canvas,
+progress,
+video {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+audio:not([controls]) {
+	display: none;
+	height: 0;
+}
+
+[hidden],
+template {
+	display: none;
+}
+
+a {
+	background-color: transparent;
+}
+
+a:active,
+a:hover {
+	outline: 0;
+}
+
+abbr[title] {
+	border-bottom: 1px dotted;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+dfn {
+	font-style: italic;
+}
+
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+
+mark {
+	background: #ff0;
+	color: #000;
+}
+
+small {
+	font-size: 80%;
+}
+
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	top: -0.5em;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+img {
+	border: 0;
+}
+
+svg:not(:root) {
+	overflow: hidden;
+}
+
+figure {
+	margin: 1em 40px;
+}
+
+hr {
+	box-sizing: content-box;
+	height: 0;
+}
+
+pre {
+	overflow: auto;
+}
+
+code,
+kbd,
+pre,
+samp {
+	font-family: monospace, monospace;
+	font-size: 1em;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+	color: inherit;
+	font: inherit;
+	margin: 0;
+}
+
+button {
+	overflow: visible;
+}
+
+button,
+select {
+	text-transform: none;
+}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+	-webkit-appearance: button;
+	cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+	cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+input {
+	line-height: normal;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	box-sizing: border-box;
+	padding: 0;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	height: auto;
+}
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+	-webkit-appearance: none;
+}
+
+fieldset {
+	border: 1px solid #c0c0c0;
+	margin: 0 2px;
+	padding: 0.35em 0.625em 0.75em;
+}
+
+legend {
+	border: 0;
+	padding: 0;
+}
+
+textarea {
+	overflow: auto;
+}
+
+optgroup {
+	font-weight: bold;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+td,
+th {
+	padding: 0;
+}
+
+/*--------------------------------------------------------------
+# Layouting
+--------------------------------------------------------------*/
+
+section#home {
+
+}
+	.turnero-container-home {
+		display: grid;
+		grid-template-columns: repeat(12, 1fr);
+		grid-template-rows: 10% 75% 15%;
+		grid-gap: 0;
+		height: 100vh;
+		width: 100%;
+	}
+
+	.turnero-navbar {
+		background-color: $turnero-cyan;
+		grid-column: 1 / 9;
+		grid-row: 1;
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+		height: 100%;
+	}
+
+	.turnero-banner {
+		background-color: $turnero-violeta;
+		grid-column: 1 / 9;
+		grid-row: 2;
+	}
+
+	.turnero-sidebar {
+		grid-column: 9 / -1;
+		grid-row: 1 / -1;
+		text-align: center;
+		padding: 2rem;
+	}
+
+	.turnero-footer {
+		grid-column: 1 / 9;
+		grid-row: 3;
+		background-color: $turnero-azul-oscuro;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: 3rem;
+	}
+
+/* Header */
+	.turnero-container-logo {
+		background-color: $turnero-azul-oscuro;
+		background-blend-mode: multiply;
+		grid-column: 1 / 3;
+		padding: 1rem 0 1rem 0;
+	}
+
+	.turnero-container-menu {
+		background-color: $turnero-cyan;
+		grid-column: 3 / 9;
+	}
+
+	.turnero-container-hora {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		color: white;
+		grid-column: 8 / -1;
+		text-align: right;
+		padding-right: 3rem;
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+
+
+/* -------------------------------------
+# Variantes
+-------------------------------------*/
+
+// Formales
+.rounded-right {
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
+}
+
+.rounded-left {
+	border-top-left-radius: 50%;
+	border-bottom-left-radius: 50%;
+}
+
+.bold {
+	font-weight: 700;
+}
+
+
+/* -------------------------------------
+# Elementos
+-------------------------------------*/
+
+/* Turnero Card */
+	.turnero-card-container {
+		display: flex;
+		height: 100%;
+		flex-direction: column;
+		justify-content: space-around;
+
+		.card-01 {
+			flex-grow: 2;
+
+		}
+
+		.card-02 {
+
+		}
+
+		.card-03 {
+
+		}
+
+		.card-04 {
+
+		}
+
+		&.dark {
+			color: white;
+		}
+	}
+
+	@media screen and (min-width: 320px) and (max-width: 680px) {
+
+	}
+
+	@media screen and (max-width: 320px) {
+
+	}
+
+
+hr {
+	border: solid 2px;
+
+	&.gris {
+		border-color: $turnero-gris;
+	}
+
+}
+
+/* Dimensiones */
+.xxs {
+	width: 12.5%;
+}
+
+.xs {
+	width: 25%;
+}
+
+.sm {
+	width: 50%;
+}
+
+.md {
+	width: 100%;
+}
+
+.lg {
+	width: 125%;
+}
+
+.xl {
+	width: 150%;
+	
+}
+
+/*--------------------------------------------------------------
+# Colores
+--------------------------------------------------------------*/
+	.azul-oscuro {
+		&.borde {
+			border: solid 1px $turnero-azul; 
+		}
+
+		&.fondo {
+			background: $turnero-azul;
+		}
+
+		&.titulo {
+			color: $turnero-azul;
+		}
+
+		&.texto {
+			color: $turnero-azul;
+		}
+	}
+  
+	.cyan {
+
+		&.borde {
+			border: solid 1px $turnero-cyan; 
+		}
+
+		&.fondo {
+			background: $turnero-cyan;
+		}
+
+		&.titulo {
+			color: $turnero-cyan;
+		}
+
+		&.texto {
+			color: $turnero-cyan;
+		}
+
+	}
+
+	.magenta {
+
+		&.borde {
+			border: solid 1px $turnero-magenta; 
+		}
+
+		&.fondo {
+			background: $turnero-magenta;
+		}
+
+		&.titulo {
+			color: $turnero-magenta;
+		}
+
+		&.texto {
+			color: $turnero-magenta;
+		}
+
+	}
+  
+	div.azul.fondo {
+		background: #2c4794; }
+  
+	div.azul [class*="titulo"] {
+		color: #2c4794; }
+  
+	div.cyan div.borde {
+		border: solid 8px #00a1df; }
+  
+	div.cyan div.fondo {
+		background: #00a1df; }
+  
+	div.cyan div.texto {
+		color: #00a1df; }
+
+	div.celeste div.borde {
+		border: solid 8px #84cef0;}
+	
+	div.celeste div.fondo {
+		background: #84cef0; }
+	
+	div.celeste div.texto {
+		color: #84cef0; }
+  
+	div.verde [class*="borde"] {
+		border: solid 8px #00b9b1; }
+  
+	div.verde.fondo {
+		background: #00b9b1; }
+
+	div.verde [class*="titulo"]{
+		color: #00b9b1; }
+
+	div.verde-claro [class*="borde"] {
+		border: solid 8px #63c7b7; }
+	
+	div.verde-claro div.fondo {
+		background: #63c7b7; }
+	
+	div.verde-claro div.texto {
+		color: #63c7b7; }
+  
+	div.rojo [class*="borde"] {
+		border: solid 8px #cb0053; }
+	
+	div.rojo.fondo {
+		background: #cb0053; }
+
+	div.rojo [class*="titulo"] {
+		color: #cb0053; }
+
+  	div.violeta div.borde {
+		border: solid 8px #662480; }
+  
+  	div.violeta div.fondo {
+		background: #662480; }
+  
+  	div.violeta div.texto {
+		color: #662480; }
+
+  	div.violeta div.borde {
+		border: solid 8px #662480; }
+  
+  	div.violeta div.fondo {
+		background: #662480; }
+  
+  	div.violeta div.texto {
+		color: #662480; }
+
+	div.violeta-claro div.borde {
+		border: solid 8px #982f98; }
+	
+	div.violeta-claro div.fondo {
+		background: #982f98; }
+
+	div.violeta-claro div.texto {
+		color: #982f98; }
+
+	div.violeta-claro div.borde {
+		border: solid 8px #e3007e; }
+	
+	div.violeta-claro div.fondo {
+		background: #e3007e; }
+
+	div.violeta-claro div.texto {
+		color: #e3007e; }
+
+/*--------------------------------------------------------------
+# Tipografia
+--------------------------------------------------------------*/
+.turnero-badge {
+	align-self: center;
+	border: solid 2px;
+	border-radius: 25px;
+	font-size: 1rem;
+	text-transform: uppercase;
+	padding: 0.25rem;
+	width: 50%;
+
+	&.verde {
+		border-color: $turnero-verde;
+		color: $turnero-verde;
+	}
+}
+
+.turnero-card-img {
+	align-self: center;
+	border: solid 3px;
+	border-radius: 50%;
+	object-fit: cover;
+	height: 4rem;
+	width: 4rem;
+	position: relative;
+
+	&.magenta {
+		border-color: $turnero-magenta;
+	}
+
+	&.cyan {
+		border-color: $turnero-cyan;
+	}
+
+	&.celeste {
+		border-color: $turnero-celeste;
+	}
+}
+
+.turnero-logo {
+	height: 100%;
+	width: 100%;
+}
+
+.turnero-icon {
+	font-size: 3rem;
+	
+	&.magenta {
+		-webkit-text-fill-color: $turnero-magenta;
+	}
+
+	&.cyan {
+		-webkit-text-fill-color: $turnero-cyan;
+	}
+
+	&.celeste {
+		-webkit-text-fill-color: $turnero-celeste;
+	}
+
+	&.baseline {
+		padding-top: 16px;
+	}
+
+}
+
+.icon-left {
+	margin-right: 0.5rem;
+}
+
+.turnero-card-prefix {
+	font-size: 2rem;
+	font-weight: 700;
+}
+
+.turnero-card-titulo {
+	font-size: 3.5rem;
+	color: $turnero-azul-oscuro;
+	font-weight: 900;
+}
+
+.turnero-card-subtitulo {
+	font-size: 2.5rem;
+	color: $turnero-azul-oscuro;
+	font-weight: 900;
+}
+
+.turnero-card-texto {
+	font-size: 1rem;
+}
+
+.turnero-card-numero {
+	font-size: 7rem; 
+	font-weight: 700;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+
+.turnero-card-titulo {
+	span {
+		font-size: 3.5rem;
+		color: $turnero-azul-oscuro;
+		font-weight: normal;
+		white-space: pre-wrap;
+	  &::before {
+		content: "\A";
+	  }
+	}
+  }
+
+  .turnero-card-subtitulo {
+	span {
+		font-size: 2.5rem;
+		color: $turnero-azul-oscuro;
+		font-weight: normal;
+	  &::before {
+		content: "\A";
+	  }
+	}
+  }
