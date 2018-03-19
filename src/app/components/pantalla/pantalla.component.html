@@ -41,7 +41,7 @@
 
                 <div>
                     <div class="turnero-badge-ultimo ">ULTIMOS LLAMADOS</div>
-                    <div class="turnero-badge-ultimo naranja" [ngClass]="{'blink-5': audio === true}" *ngFor='let turno of ultimosTurnos'>
+                    <div class="turnero-badge-ultimo naranja"  *ngFor='let turno of ultimosTurnos'>
                         <span> {{turno.paciente[0].nombre}} {{turno.paciente[0].apellido}} </span>
                         <br>
                         <span> {{turno.espacioFisico}}</span>
@@ -107,6 +107,7 @@
         <source src="./assets/audio/ding-dong.ogg">
         <source src="./assets/audio/ding-dong.m4a">
     </audio>
+
 </body>
 
 </html>
