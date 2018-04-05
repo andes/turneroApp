@@ -32,46 +32,45 @@
         </div>
         <!-- banner -->
 
-        
+
         <!-- sidebar -->
-        <div id="sidebar" class="turnero-sidebar" style="z-index: 10000;
-        box-shadow: -2px 2px 12px 0px rgba(0, 0, 0, 0.41);">
+        <div id="sidebar" class="turnero-sidebar">
             <!-- Paciente -->
             <div class="turnero-card-container">
 
-                <div>
+                <!-- <div>
                     <div class="turnero-badge-ultimo ">ULTIMOS LLAMADOS</div>
-                    <div class="turnero-badge-ultimo naranja"  *ngFor='let turno of ultimosTurnos'>
+                    <div class="turnero-badge-ultimo naranja" *ngFor='let turno of ultimosTurnos'>
                         <span> {{turno.paciente[0].nombre}} {{turno.paciente[0].apellido}} </span>
                         <br>
                         <span> {{turno.espacioFisico}}</span>
                         <!-- <a *ngIf='prestacion.seleccionada !== true' class="secondary-content " style="cursor: pointer;" (click)='seleccionar(prestacion)'>
                                                     <i class="material-icons">add</i>
-                                                </a> -->
+                                                </a> 
                     </div>
-                </div>
-                <hr class="gris xxs">
-                <div *ngIf='cantidadLlamados === 1' class="turnero-badge verde">Primer llamado</div>
-                <div *ngIf='cantidadLlamados === 2' class="turnero-badge naranja">Segundo llamado</div>
-                <div *ngIf='cantidadLlamados === 3' class="turnero-badge rojo">Tercer llamado</div>
-                <div class="row">
-                    <div class="col s6 m6">
+                </div> -->
+                <!-- <hr class="gris xxs"> -->
+                <div *ngIf='cantidadLlamados === 1' class="turnero-badge verde" style="font-size: 1.5rem;">Primer llamado</div>
+                <div *ngIf='cantidadLlamados === 2' class="turnero-badge naranja"  style="font-size: 1.5rem;">Segundo llamado</div>
+                <div *ngIf='cantidadLlamados === 3' class="turnero-badge rojo"  style="font-size: 1.5rem;">Tercer llamado</div>
+                <!-- <div class="row">
+                    <div class="col s6 m6"> -->
 
-                        <!-- <div class="turnero-card-img " style="border-color: #00a1df;">
-                            <div class="icon-andes-paciente turnero-icon baseline cyan" style="background-color:unset !important"></div>
-                        </div> -->
-                        <div class="turnero-card-prefix cyan texto" style="background-color:unset !important">PACIENTE</div>
-                        <div class="turnero-card-titulo" [ngClass]="{'blink-5': audio === true}">{{turno.paciente.apellido}}
-                            <span>{{turno.paciente.nombre}}</span>
-                        </div>
-                    </div>
-                    <div class="col s6 m6">
-                        <!-- <hr class="gris xxs"> -->
-                        <!-- Consultorio -->
-                        <div class="turnero-card-prefix uppercase cyan texto" style="background-color:unset !important">Consultorio</div>
-                        <div class="turnero-card-titulo"> {{turno.espacioFisico}}</div>
-                    </div>
+                <div class="turnero-card-img " style="border-color: #00a1df;">
+                    <div class="icon-andes-paciente turnero-icon baseline cyan"></div>
                 </div>
+                <div class="turnero-card-prefix cyan texto" >PACIENTE</div>
+                <div class="turnero-card-titulo" [ngClass]="{'blink-5': audio === true}">{{turno.paciente.apellido}}
+                    <span>{{turno.paciente.nombre}}</span>
+                </div>
+                <!-- </div> -->
+                <!-- <div class="col s6 m6"> -->
+                <!-- <hr class="gris xxs"> -->
+                <!-- Consultorio -->
+                <div class="turnero-card-prefix uppercase cyan texto" >Consultorio</div>
+                <div class="turnero-card-titulo"> {{turno.espacioFisico}}</div>
+                <!-- </div>
+                </div> -->
                 <!-- Profesional -->
                 <div class="turnero-card-img magenta">
                     <div class="icon-andes-profesional turnero-icon baseline magenta"></div>
@@ -85,6 +84,45 @@
 
         </div>
         <!-- sidebar -->
+        <div id="sidebar" class="turnero-ultimos">
+            
+            <div class="row">
+                <div class="col m12 m12 tituloUltimosLladados" style="    font-size: 2.5rem;
+                text-transform: uppercase;">
+                    Llamados Anteriores
+                </div>
+                <div class="col m12 m12 ultimosLlamados ultimo{{i}}" *ngFor='let turno of ultimosTurnos;let i = index' >
+                    <div class="turnero-card-prefix uppercase cyan texto"  style="background-color:unset !important; font-size: 1.5rem !important;"  >Paciente</div>
+
+                    <div class="turnero-card-subtitulo-ultimos">{{turno.paciente[0].apellido}}
+                        <br>
+                        <span> {{turno.paciente[0].nombre}} </span>
+                    </div>
+                    <!-- <hr class="gris xxs"> -->
+                    <div class="turnero-card-prefix uppercase cyan texto" style="background-color:unset !important; font-size: 1.5rem !important;">Consultorio</div>
+
+                    <span style="    font-size: 3rem;"> {{turno.espacioFisico}}</span> 
+                    <!-- <span style="    font-size: 3rem;"> 03 </span> -->
+                    <!-- <a *ngIf='prestacion.seleccionada !== true' class="secondary-content " style="cursor: pointer;" (click)='seleccionar(prestacion)'>
+                                                        <i class="material-icons">add</i>
+                                                    </a> -->
+                </div>
+                <!-- <div class="col m12 m12">
+                    <p>asdas asd asd asd a das dasdasdasd asdasd asdas das da sd </p>
+                </div>
+                <div class="col m12 m12">
+                    <p>asdas asd asd asd a das dasdasdasd asdasd asdas das da sd </p>
+                </div>
+                <div class="col m12 m12">
+                    <p>asdas asd asd asd a das dasdasdasd asdasd asdas das da sd </p>
+                </div>
+                <div class="col m12 m12">
+                    <p>asdas asd asd asd a das dasdasdasd asdasd asdas das da sd </p>
+                </div> -->
+
+            </div>
+
+        </div>
 
         <!-- footer -->
         <div id="footer" class="turnero-footer">

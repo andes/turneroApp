@@ -237,7 +237,7 @@ th {
 
 .turnero-navbar {
   background-color: #00a1df;
-  grid-column: 1 / 9;
+  grid-column: 1 / 6;
   grid-row: 1;
   display: flex;
   justify-content: space-between;
@@ -246,17 +246,26 @@ th {
 
 .turnero-banner {
   background-color: #662480;
-  grid-column: 1 / 9;
+  grid-column: 1 / 6;
   grid-row: 2; }
 
 .turnero-sidebar {
-  grid-column: 9 / -1;
+  grid-column: 6 / -4;
   grid-row: 1 / -1;
   text-align: center;
-  padding: 2rem; }
+  padding: 2rem;
+  z-index: 10000;
+  box-shadow: -2px 2px 12px 0px rgba(0, 0, 0, 0.41);
+}
+
+  .turnero-ultimos {
+    grid-column: 10 / -1;
+    grid-row: 1 / -1;
+    text-align: center;
+ }
 
 .turnero-footer {
-  grid-column: 1 / 9;
+  grid-column: 1 / 6;
   grid-row: 3;
   background-color: #243163;
   display: flex;
@@ -358,7 +367,8 @@ hr {
 .cyan.titulo {
   color: #00a1df; }
 .cyan.texto {
-  color: #00a1df; }
+  color: #00a1df;
+  background-color: unset !important; }
 
 .magenta.borde {
   border: solid 1px #e3007e; }
@@ -517,6 +527,7 @@ div.violeta-claro div.texto {
   .turnero-icon.celeste {
     -webkit-text-fill-color: #84cef0; }
   .turnero-icon.baseline {
+    background-color: unset !important;
    }
 
 .icon-left {
@@ -535,6 +546,11 @@ div.violeta-claro div.texto {
   font-size: 3.5rem;
   color: #243163;
   font-weight: 900; }
+
+  .turnero-card-subtitulo-ultimos {
+    font-size: 3rem;
+    color: #243163;
+    font-weight: 900; }
 
 .turnero-card-texto {
   font-size: 1rem; }
@@ -560,5 +576,36 @@ div.violeta-claro div.texto {
   font-weight: normal; }
   .turnero-card-subtitulo span::before {
     content: "\A"; }
+  
+    .turnero-card-subtitulo-ultimos span {
+      font-size: 2.3rem;
+      color: #243163;
+      font-weight: normal; }
+      .turnero-card-subtitulo-ultimos span::before {
+        content: "\A"; }
+
+
+.ultimosLlamados{
+  background-color: #e6e6e6;;
+  padding-bottom:0px !important;
+  padding-top: 5% !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.38)
+}
+
+.tituloUltimosLladados{
+  padding: 10% !important;
+  background-color: #243163;
+  color: white;
+}
+
+/* .ultimo0{
+  background-color: red !important;
+} */
+.ultimo1{
+  background-color: #f2f2f2 !important;
+}
+.ultimo2{
+  background-color: #f7f7f7 !important;
+}
 
 /*# sourceMappingURL=style.css.map */

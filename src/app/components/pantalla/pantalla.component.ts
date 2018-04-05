@@ -69,7 +69,7 @@ export class PantallaComponent implements OnInit {
 
     this.configuracionPantallaService.get({ nombrePantalla: nombreP }).subscribe(datos => {
 
-      // this.traeTurnos()
+    //  this.traeTurnos()
       if (datos) {
         const prest = datos[0].prestaciones;
         prest.forEach(element => {
@@ -151,8 +151,10 @@ export class PantallaComponent implements OnInit {
   }
 
   traeTurnos() {
+
     this.pantallaService.getTotalTurnos({ limit: 3 }).subscribe(data => {
       this.ultimosTurnos = data;
+      console.log(this.ultimosTurnos)
     });
   }
 
