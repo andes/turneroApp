@@ -104,8 +104,14 @@ export class PantallaComponent implements OnInit {
           this.audio = true;
           this.turno.paciente.nombre = turnoEntrante.paciente.nombre;
           this.turno.paciente.apellido = turnoEntrante.paciente.apellido;
-          this.turno.profesional.nombre = turnoEntrante.profesional.nombre;
-          this.turno.profesional.apellido = turnoEntrante.profesional.apellido;
+          if(turnoEntrante.profesional){
+            this.turno.profesional.nombre = turnoEntrante.profesional.nombre;
+            this.turno.profesional.apellido = turnoEntrante.profesional.apellido;
+          }else{
+            this.turno.profesional.nombre = '';
+            this.turno.profesional.apellido = '';
+          }
+
           if (turnoEntrante.espacioFisico) {
             this.turno.espacioFisico = turnoEntrante.espacioFisico.nombre;
           } else {

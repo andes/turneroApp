@@ -76,8 +76,8 @@
                     <div class="icon-andes-profesional turnero-icon baseline magenta"></div>
                 </div>
                 <div class="turnero-card-prefix magenta texto">PROFESIONAL</div>
-                <div class="turnero-card-subtitulo ">{{turno.profesional.apellido}}
-                    <span>{{turno.profesional.nombre}}</span>
+                <div class="turnero-card-subtitulo ">{{turno.profesional?.apellido}}
+                    <span>{{turno.profesional?.nombre}}</span>
                 </div>
             </div>
 
@@ -101,7 +101,7 @@
                     <!-- <hr class="gris xxs"> -->
                     <div class="turnero-card-prefix uppercase cyan texto" style="background-color:unset !important; font-size: 1.5rem !important;">Consultorio</div>
 
-                    <span style="    font-size: 3rem;"> {{turno.espacioFisico}}</span> 
+                    <span style="    font-size: 2.5rem;"> {{turno.espacioFisico}}</span> 
                     <!-- <span style="    font-size: 3rem;"> 03 </span> -->
                     <!-- <a *ngIf='prestacion.seleccionada !== true' class="secondary-content " style="cursor: pointer;" (click)='seleccionar(prestacion)'>
                                                         <i class="material-icons">add</i>

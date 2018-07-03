@@ -12,7 +12,7 @@ export class PantallaService {
 
   // private urlPersona = 'http://192.168.0.126:3002/api/modules/socket';
 
-  private url = 'http://192.168.1.198:3002';
+  private url = 'http://localhost:3002';
   private socket;
   private totalTurnos = AppSettings.API_ENDPOINT + '/modules/turnero/busqueda';  // URL to web api
   
