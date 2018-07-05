@@ -1,151 +1,110 @@
-<!DOCTYPE html>
-<html>
 
+<div id="home" class="turnero-container-home">
+    <div id="head"></div>
+    <!-- Header -->
+    <div id="header" class="turnero-navbar">
 
-
-<body>
-    <div id="home" class="turnero-container-home">
-        <div id="head"></div>
-        <!-- Header -->
-        <div id="header" class="turnero-navbar">
-
-            <div class="turnero-container-logo rounded-right">
-                <img class="turnero-logo" src="./assets/svg/turnero_logo_colegio.svg">
-            </div>
-            <div class="turnero-container-hora">
-                <div class="icon-andes-turno turnero-icon icon-left celeste"></div>
-                <div class="icon-left">{{fecha}}</div>
-                <div class="icon-andes-horario turnero-icon icon-left celeste"></div>
-                <div class="icon-left">{{now}} hs.</div>
-            </div>
-
+        <div class="turnero-container-logo rounded-right">
+            <img class="turnero-logo" src="./assets/svg/turnero_logo_colegio.svg">
         </div>
-        <!-- Header -->
-
-        <!-- banner -->
-        <div id="banner" class="turnero-banner">
-            <video autoplay muted loop style="    width: 100%; height:100%">
-                <source src="./assets/andes.mp4" type="video/mp4">
-            </video>
-            <!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed/4zC9nItaBms" frameborder="0" allow="autoplay; encrypted-media"
-                allowfullscreen></iframe> -->
+        <div class="turnero-container-hora">
+            <div class="icon-andes-turno turnero-icon icon-left celeste"></div>
+            <div class="icon-left">{{fecha}}</div>
+            <div class="icon-andes-horario turnero-icon icon-left celeste"></div>
+            <div class="icon-left">{{now}} hs.</div>
         </div>
-        <!-- banner -->
-
-
-        <!-- sidebar -->
-        <div id="sidebar" class="turnero-sidebar">
-            <!-- Paciente -->
-            <div class="turnero-card-container">
-
-                <!-- <div>
-                    <div class="turnero-badge-ultimo ">ULTIMOS LLAMADOS</div>
-                    <div class="turnero-badge-ultimo naranja" *ngFor='let turno of ultimosTurnos'>
-                        <span> {{turno.paciente[0].nombre}} {{turno.paciente[0].apellido}} </span>
-                        <br>
-                        <span> {{turno.espacioFisico}}</span>
-                        <!-- <a *ngIf='prestacion.seleccionada !== true' class="secondary-content " style="cursor: pointer;" (click)='seleccionar(prestacion)'>
-                                                    <i class="material-icons">add</i>
-                                                </a> 
-                    </div>
-                </div> -->
-                <!-- <hr class="gris xxs"> -->
-                <div *ngIf='cantidadLlamados === 1' class="turnero-badge verde" style="font-size: 1.5rem;">Primer llamado</div>
-                <div *ngIf='cantidadLlamados === 2' class="turnero-badge naranja"  style="font-size: 1.5rem;">Segundo llamado</div>
-                <div *ngIf='cantidadLlamados === 3' class="turnero-badge rojo"  style="font-size: 1.5rem;">Tercer llamado</div>
-                <!-- <div class="row">
-                    <div class="col s6 m6"> -->
-
-                <div class="turnero-card-img " style="border-color: #00a1df;">
-                    <div class="icon-andes-paciente turnero-icon baseline cyan"></div>
-                </div>
-                <div class="turnero-card-prefix cyan texto" >PACIENTE</div>
-                <div class="turnero-card-titulo" [ngClass]="{'blink-5': audio === true}">{{turno.paciente.apellido}}
-                    <span>{{turno.paciente.nombre}}</span>
-                </div>
-                <!-- </div> -->
-                <!-- <div class="col s6 m6"> -->
-                <!-- <hr class="gris xxs"> -->
-                <!-- Consultorio -->
-                <div class="turnero-card-prefix uppercase cyan texto" >Consultorio</div>
-                <div class="turnero-card-titulo"> {{turno.espacioFisico}}</div>
-                <!-- </div>
-                </div> -->
-                <!-- Profesional -->
-                <div class="turnero-card-img magenta">
-                    <div class="icon-andes-profesional turnero-icon baseline magenta"></div>
-                </div>
-                <div class="turnero-card-prefix magenta texto">PROFESIONAL</div>
-                <div class="turnero-card-subtitulo ">{{turno.profesional?.apellido}}
-                    <span>{{turno.profesional?.nombre}}</span>
-                </div>
-            </div>
-
-
-        </div>
-        <!-- sidebar -->
-        <div id="sidebar" class="turnero-ultimos">
-            
-            <div class="row">
-                <div class="col m12 m12 tituloUltimosLladados" style="    font-size: 2.5rem;
-                text-transform: uppercase;">
-                    Llamados Anteriores
-                </div>
-                <div class="col m12 m12 ultimosLlamados ultimo{{i}}" *ngFor='let turno of ultimosTurnos;let i = index' >
-                    <div class="turnero-card-prefix uppercase cyan texto"  style="background-color:unset !important; font-size: 1.5rem !important;"  >Paciente</div>
-
-                    <div class="turnero-card-subtitulo-ultimos">{{turno.paciente[0].apellido}}
-                        <br>
-                        <span> {{turno.paciente[0].nombre}} </span>
-                    </div>
-                    <!-- <hr class="gris xxs"> -->
-                    <div class="turnero-card-prefix uppercase cyan texto" style="background-color:unset !important; font-size: 1.5rem !important;">Consultorio</div>
-
-                    <span style="    font-size: 2.5rem;"> {{turno.espacioFisico}}</span> 
-                    <!-- <span style="    font-size: 3rem;"> 03 </span> -->
-                    <!-- <a *ngIf='prestacion.seleccionada !== true' class="secondary-content " style="cursor: pointer;" (click)='seleccionar(prestacion)'>
-                                                        <i class="material-icons">add</i>
-                                                    </a> -->
-                </div>
-                <!-- <div class="col m12 m12">
-                    <p>asdas asd asd asd a das dasdasdasd asdasd asdas das da sd </p>
-                </div>
-                <div class="col m12 m12">
-                    <p>asdas asd asd asd a das dasdasdasd asdasd asdas das da sd </p>
-                </div>
-                <div class="col m12 m12">
-                    <p>asdas asd asd asd a das dasdasdasd asdasd asdas das da sd </p>
-                </div>
-                <div class="col m12 m12">
-                    <p>asdas asd asd asd a das dasdasdasd asdasd asdas das da sd </p>
-                </div> -->
-
-            </div>
-
-        </div>
-
-        <!-- footer -->
-        <div id="footer" class="turnero-footer">
-            <div class="">
-                <img class="" src="./assets/svg/turnero_logo_ministerio.svg">
-            </div>
-            <div>
-                <img class="" src="./assets/svg/turnero_logo_andes.svg">
-            </div>
-        </div>
-        <!-- footer -->
 
     </div>
-    <footer>
-        <div id="js"></div>
-    </footer>
+    <!-- Header -->
 
-    <audio *ngIf="audio === true" autoplay>
-        <source src="./assets/audio/ding-dong.mp3">
-        <source src="./assets/audio/ding-dong.ogg">
-        <source src="./assets/audio/ding-dong.m4a">
-    </audio>
+    <!-- banner -->
+    <div id="banner" class="turnero-banner">
+        <video autoplay muted loop style="    width: 100%; height:100%">
+            <source src="./assets/andes.mp4" type="video/mp4">
+        </video>
+    </div>
+    <!-- banner -->
 
-</body>
 
-</html>
+    <!-- sidebar -->
+    <div id="sidebar" class="turnero-sidebar">
+        <!-- Paciente -->
+        <div class="turnero-card-container">
+            <div *ngIf='cantidadLlamados === 1' class="turnero-badge verde">Primer llamado</div>
+            <div *ngIf='cantidadLlamados === 2' class="turnero-badge naranja" >Segundo llamado</div>
+            <div *ngIf='cantidadLlamados === 3' class="turnero-badge rojo" >Tercer llamado</div>
+            
+            <div class="turnero-card-img " style="border-color: #00a1df;">
+                <div class="icon-andes-paciente turnero-icon baseline cyan"></div>
+            </div>
+            <div class="turnero-card-prefix cyan texto" >PACIENTE</div>
+            <div class="turnero-card-titulo" [ngClass]="{'blink-5': audio === true}">{{turno.paciente.apellido}}
+                <span>{{turno.paciente.nombre}}</span>
+            </div>
+            
+            <!-- Consultorio -->
+            <div class="turnero-card-prefix uppercase cyan texto" >Consultorio</div>
+            <div class="turnero-card-titulo"> {{turno.espacioFisico}}</div>
+            
+            <!-- Profesional -->
+            <div class="turnero-card-img magenta">
+                <div class="icon-andes-profesional turnero-icon baseline magenta"></div>
+            </div>
+            <div class="turnero-card-prefix magenta texto">PROFESIONAL</div>
+            <div class="turnero-card-subtitulo ">{{turno.profesional?.apellido}}
+                <span>{{turno.profesional?.nombre}}</span>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- sidebar -->
+    <div id="sidebar" class="turnero-ultimos">
+        
+        <div class="row">
+            <div class="col m12 m12 tituloUltimosLladados" style="    font-size: 2.5rem;
+            text-transform: uppercase;">
+                Llamados Anteriores
+            </div>
+            <div class="col m12 m12 ultimosLlamados ultimo{{i}}" *ngFor='let turno of ultimosTurnos;let i = index' >
+                <div class="turnero-card-prefix uppercase cyan texto"  style="background-color:unset !important; font-size: 1.5rem !important;"  >Paciente</div>
+
+                <div class="turnero-card-subtitulo-ultimos">{{turno.paciente[0].apellido}}
+                    <br>
+                    <span> {{turno.paciente[0].nombre}} </span>
+                </div>
+                <!-- <hr class="gris xxs"> -->
+                <div class="turnero-card-prefix uppercase cyan texto" style="background-color:unset !important; font-size: 1.5rem !important;">Consultorio</div>
+
+                <span style="    font-size: 2.5rem;"> {{turno.espacioFisico}}</span> 
+                <!-- <span style="    font-size: 3rem;"> 03 </span> -->
+                <!-- <a *ngIf='prestacion.seleccionada !== true' class="secondary-content " style="cursor: pointer;" (click)='seleccionar(prestacion)'>
+                                                    <i class="material-icons">add</i>
+                                                </a> -->
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- footer -->
+    <div id="footer" class="turnero-footer">
+        <div class="">
+            <img class="" src="./assets/svg/turnero_logo_ministerio.svg">
+        </div>
+        <div>
+            <img class="" src="./assets/svg/turnero_logo_andes.svg">
+        </div>
+    </div>
+    <!-- footer -->
+
+</div>
+<footer>
+    <div id="js"></div>
+</footer>
+
+<audio *ngIf="audio === true" autoplay>
+    <source src="./assets/audio/ding-dong.mp3">
+    <source src="./assets/audio/ding-dong.ogg">
+    <source src="./assets/audio/ding-dong.m4a">
+</audio>

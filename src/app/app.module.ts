@@ -12,41 +12,40 @@ import { PantallaService } from '../app/services/pantalla/pantalla.service';
 import { TipoPrestacionService } from '../app/services/pantalla/tipoPrestacion.service';
 import { ConfiguracionService } from '../app/services/configuracion/configuracionPantalla.service';
 
-
 /* Componentes Angular Material*/
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import {MatGridListModule} from '@angular/material/grid-list';
 import { PantallaComponent } from './components/pantalla/pantalla.component';
-import { ConfiguracionComponent } from './components/configuracionPantalla/configuracion.component';
 import { MenuComponent } from './components/menu/menu.component'
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { routing, appRoutingProviders } from './app.routing';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
-import {MatInputModule} from '@angular/material/input';
-import {MatListModule} from '@angular/material/list';
-import {MatTableModule} from '@angular/material/table';
+import { AuthService } from './services/auth.service';
+import { RoutingGuard } from './app.ruotings-guard.class';
+import { StartComponent } from './components/start/start.component';
+import { WebSocketService } from './services/websocket.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PantallaComponent,
-    ConfiguracionComponent,
-    MenuComponent
-  ],
-  imports: [
-    BrowserModule,
-    MatIconModule,
-    FormsModule,
-    HttpModule,
-    routing,
-    HttpClientModule,
-    AngularMultiSelectModule
-  ],
-  providers: [PantallaService,
-    TipoPrestacionService,
-    ConfiguracionService,
-    appRoutingProviders],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        PantallaComponent,
+        MenuComponent,
+        StartComponent
+    ],
+    imports: [
+        BrowserModule,
+        MatIconModule,
+        FormsModule,
+        HttpModule,
+        routing,
+        HttpClientModule,
+        AngularMultiSelectModule
+    ],
+    providers: [
+        ConfiguracionService,
+        appRoutingProviders,
+        AuthService,
+        RoutingGuard,
+        WebSocketService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

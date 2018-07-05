@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PantallaService } from '../../services/pantalla/pantalla.service';
 import * as moment from 'moment';
 import { ConfiguracionService } from '../../services/configuracion/configuracionPantalla.service';
+import { WebSocketService } from '../../services/websocket.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     selector: 'app-pantalla',
@@ -30,17 +32,29 @@ export class PantallaComponent implements OnInit {
     };
 
     public nombrePantalla;
-    private fecha;
+    public fecha;
     public audio = false;
     public now;
     public turnoAlista;
-    public sinNombre = false;
     public ultimosTurnos = [];
     public cantidadLlamados = 1;
-    connection;
+
+    constructor(
+        public ws: WebSocketService,
+        public auth: AuthService,
+        public configuracionPantallaService: ConfiguracionService
+    ) { }
 
     ngOnInit() {
-        const nombreP = localStorage.getItem('NombrePantalla');
+        moment.locale('es');
+        setInterval(() => {
+            this.now = moment().format('HH:mm');
+        }, 1000);
+        this.fecha = moment(new Date()).format('LL');
+
+        this.ws.auth(this.auth.token);
+
+        // const nombreP = localStorage.getItem('NombrePantalla');
 
 
     // this.connection = this.pantallaService.getNumero(pantalla.nombrePantalla).subscribe(turno => {
@@ -52,107 +66,98 @@ export class PantallaComponent implements OnInit {
     // });
 
 
-        const timeoutId = setInterval(() => {
-            const time = new Date();
-            this.now = ('0' + time.getHours()).substr(-2) + ':' + ('0' + time.getMinutes()).substr(-2);
-      // this.now = ('0'+time.getHours()).substr(-2) +':'+ ('0'+time.getMinutes()).substr(-2) +':'+ ('0'+time.getSeconds()).substr(-2);
-        }, 1000);
+        // const datosPantalla = {
+        //     pantalla: nombreP,
+        //     prestaciones: []
+        // };
 
-        moment.locale('es');
-        this.fecha = moment(new Date()).format('LL');
-        const datosPantalla = {
-            pantalla: nombreP,
-            prestaciones: []
-        };
+    //     this.configuracionPantallaService.get({ nombrePantalla: nombreP }).subscribe(datos => {
 
-        this.configuracionPantallaService.get({ nombrePantalla: nombreP }).subscribe(datos => {
+    //   //  this.traeTurnos()
+    //     if (datos) {
+    //         const prest = datos[0].prestaciones;
+    //         prest.forEach(element => {
+    //             datosPantalla.prestaciones.push(element.conceptId);
+    //         });
+    //     }
 
-      //  this.traeTurnos()
-        if (datos) {
-            const prest = datos[0].prestaciones;
-            prest.forEach(element => {
-                datosPantalla.prestaciones.push(element.conceptId);
-            });
-        }
+    //     this.pantallaService.getTurno(datosPantalla).subscribe(turnoEntrante => {
 
-        this.pantallaService.getTurno(datosPantalla).subscribe(turnoEntrante => {
+    //     if (this.sinNombre === true) {
+    //         if (turnoEntrante.paciente.id === this.turnoAlista.paciente[0].id) {
+    //             if (this.cantidadLlamados < 3) {
+    //                 this.cantidadLlamados++;
+    //             }
 
-        if (this.sinNombre === true) {
-            if (turnoEntrante.paciente.id === this.turnoAlista.paciente[0].id) {
-                if (this.cantidadLlamados < 3) {
-                    this.cantidadLlamados++;
-                }
+    //         } else {
+    //             this.cantidadLlamados = 1;
+    //         }
+    //         const index = this.ultimosTurnos.findIndex(obj => obj.paciente[0].id === this.turnoAlista.paciente[0].id);
+    //         if (index === -1) {
+    //             if (turnoEntrante.paciente.id !== this.turnoAlista.paciente[0].id) {
+    //                 this.ultimosTurnos.push(this.turnoAlista);
+    //                 if (this.ultimosTurnos.length === 4) {
+    //                     this.ultimosTurnos.splice(0, 1);
+    //                 }
+    //             }
 
-            } else {
-                this.cantidadLlamados = 1;
-            }
-            const index = this.ultimosTurnos.findIndex(obj => obj.paciente[0].id === this.turnoAlista.paciente[0].id);
-            if (index === -1) {
-                if (turnoEntrante.paciente.id !== this.turnoAlista.paciente[0].id) {
-                    this.ultimosTurnos.push(this.turnoAlista);
-                    if (this.ultimosTurnos.length === 4) {
-                        this.ultimosTurnos.splice(0, 1);
-                    }
-                }
+    //         }
+    //     }
+    //     this.turno.espacioFisico = '';
+    //     if (turnoEntrante) {
+    //         this.audio = true;
+    //         this.turno.paciente.nombre = turnoEntrante.paciente.nombre;
+    //         this.turno.paciente.apellido = turnoEntrante.paciente.apellido;
+    //         if (turnoEntrante.profesional) {
+    //             this.turno.profesional.nombre = turnoEntrante.profesional.nombre;
+    //             this.turno.profesional.apellido = turnoEntrante.profesional.apellido;
+    //         } else {
+    //             this.turno.profesional.nombre = '';
+    //             this.turno.profesional.apellido = '';
+    //         }
 
-            }
-        }
-        this.turno.espacioFisico = '';
-        if (turnoEntrante) {
-            this.audio = true;
-            this.turno.paciente.nombre = turnoEntrante.paciente.nombre;
-            this.turno.paciente.apellido = turnoEntrante.paciente.apellido;
-            if (turnoEntrante.profesional) {
-                this.turno.profesional.nombre = turnoEntrante.profesional.nombre;
-                this.turno.profesional.apellido = turnoEntrante.profesional.apellido;
-            } else {
-                this.turno.profesional.nombre = '';
-                this.turno.profesional.apellido = '';
-            }
-
-            if (turnoEntrante.espacioFisico) {
-                this.turno.espacioFisico = turnoEntrante.espacioFisico.nombre;
-            } else {
-                this.turno.espacioFisico = 'Consultar';
-            }
+    //         if (turnoEntrante.espacioFisico) {
+    //             this.turno.espacioFisico = turnoEntrante.espacioFisico.nombre;
+    //         } else {
+    //             this.turno.espacioFisico = 'Consultar';
+    //         }
 
 
 
-            this.turnoAlista = {
-                horaInicio: turnoEntrante.horaInicio,
-                horaLlamada: turnoEntrante.horaLlamada,
-                profesional: [turnoEntrante.profesional],
-                paciente: [turnoEntrante.paciente],
-                espacioFisico: this.turno.espacioFisico
-            };
-            this.sinNombre = true;
+    //         this.turnoAlista = {
+    //             horaInicio: turnoEntrante.horaInicio,
+    //             horaLlamada: turnoEntrante.horaLlamada,
+    //             profesional: [turnoEntrante.profesional],
+    //             paciente: [turnoEntrante.paciente],
+    //             espacioFisico: this.turno.espacioFisico
+    //         };
+    //         this.sinNombre = true;
 
-        }
-        setTimeout(() => {
-            this.audio = false;
-        }, 2200);
+    //     }
+    //     setTimeout(() => {
+    //         this.audio = false;
+    //     }, 2200);
 
-      });
+    //   });
 
-    });
+    // });
 
-  }
+}
+// prueba() {
+//     this.audio = true;
+//     setTimeout(() => {
+//         this.audio = false;
+//     }, 2200);
+// }
 
-  constructor(public pantallaService: PantallaService, public configuracionPantallaService: ConfiguracionService) { }
+// traeTurnos() {
 
-    prueba() {
-        this.audio = true;
-        setTimeout(() => {
-            this.audio = false;
-        }, 2200);
-    }
+//     this.pantallaService.getTotalTurnos({ limit: 3 }).subscribe(data => {
+//         this.ultimosTurnos = data;
+//     });
+// }
 
-    traeTurnos() {
 
-        this.pantallaService.getTotalTurnos({ limit: 3 }).subscribe(data => {
-            this.ultimosTurnos = data;
-            console.log(this.ultimosTurnos);
-        });
-    }
+
 
 }
