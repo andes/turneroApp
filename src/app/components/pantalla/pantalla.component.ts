@@ -54,6 +54,10 @@ export class PantallaComponent implements OnInit {
 
         this.ws.auth(this.auth.token);
 
+        this.ws.events.subscribe((turno) => {
+            console.log(turno);
+        })
+
         // const nombreP = localStorage.getItem('NombrePantalla');
 
 
