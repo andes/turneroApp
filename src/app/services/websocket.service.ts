@@ -11,7 +11,7 @@ export class WebSocketService {
     public token = null;
     public events: Observable<any>;
 
-    public messages = ['muestraTurno'];
+    public messages = ['mostrar-turno'];
 
     constructor (
         private authService: AuthService,

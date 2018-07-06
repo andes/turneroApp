@@ -14,6 +14,7 @@ export class PantallaComponent implements OnInit {
     numero: any = 1;
 
     turno: any = {
+        id: null,
         espacioFisico: null,
         paciente: {
             nombre: null,
@@ -23,7 +24,8 @@ export class PantallaComponent implements OnInit {
             nombre: null,
             apellido: null
         },
-        tipoPrestacion: null
+        tipoPrestacion: null,
+        llamados: 0
     };
 
     paciente: any = {
@@ -39,11 +41,60 @@ export class PantallaComponent implements OnInit {
     public ultimosTurnos = [];
     public cantidadLlamados = 1;
 
+    get historico () {
+        return this.ultimosTurnos.slice(0, 3);
+    }
+
     constructor(
         public ws: WebSocketService,
         public auth: AuthService,
         public configuracionPantallaService: ConfiguracionService
     ) { }
+
+    onTurnoEntrante (turnoEntrante) {
+        this.audio = true;
+
+        if (this.turno.id === turnoEntrante.id) {
+            this.turno.llamados++;
+        } else {
+
+            if (this.turno.id) {
+                let historico = JSON.parse(JSON.stringify(this.turno));
+                this.ultimosTurnos = [historico, ...this.ultimosTurnos];
+            }
+
+            let turno = this.ultimosTurnos.find((t) => t.id === turnoEntrante.id);
+            if (turno) {
+                turno.llamados++;
+                this.turno = JSON.parse(JSON.stringify(turno))
+
+            } else {
+                this.turno.id = turnoEntrante.id;
+                this.turno.paciente.nombre = turnoEntrante.paciente.nombre;
+                this.turno.paciente.apellido = turnoEntrante.paciente.apellido;
+                if (turnoEntrante.profesional) {
+                    this.turno.profesional.nombre = turnoEntrante.profesional.nombre;
+                    this.turno.profesional.apellido = turnoEntrante.profesional.apellido;
+                } else {
+                    this.turno.profesional.nombre = '';
+                    this.turno.profesional.apellido = '';
+                }
+                this.turno.llamados = 1;
+                if (turnoEntrante.espacioFisico) {
+                    this.turno.espacioFisico = turnoEntrante.espacioFisico.nombre;
+                } else {
+                    this.turno.espacioFisico = 'Consultar';
+                }
+            }
+
+        }
+
+
+        setTimeout(() => {
+            this.audio = false;
+        }, 3000);
+
+    }
 
     ngOnInit() {
         moment.locale('es');
@@ -54,114 +105,12 @@ export class PantallaComponent implements OnInit {
 
         this.ws.auth(this.auth.token);
 
-        this.ws.events.subscribe((turno) => {
-            console.log(turno);
+        this.ws.events.subscribe((packet) => {
+            switch (packet.event) {
+                case 'mostrar-turno':
+                    this.onTurnoEntrante(packet.data);
+                    break;
+            }
         })
-
-        // const nombreP = localStorage.getItem('NombrePantalla');
-
-
-    // this.connection = this.pantallaService.getNumero(pantalla.nombrePantalla).subscribe(turno => {
-    //   debugger;
-    //   console.log("Numero:  ", turno);
-    //   this.paciente.nombre = turno.paciente.nombre;
-    //   this.paciente.apellido = turno.paciente.apellido;
-    //   // this.numero = numero;
-    // });
-
-
-        // const datosPantalla = {
-        //     pantalla: nombreP,
-        //     prestaciones: []
-        // };
-
-    //     this.configuracionPantallaService.get({ nombrePantalla: nombreP }).subscribe(datos => {
-
-    //   //  this.traeTurnos()
-    //     if (datos) {
-    //         const prest = datos[0].prestaciones;
-    //         prest.forEach(element => {
-    //             datosPantalla.prestaciones.push(element.conceptId);
-    //         });
-    //     }
-
-    //     this.pantallaService.getTurno(datosPantalla).subscribe(turnoEntrante => {
-
-    //     if (this.sinNombre === true) {
-    //         if (turnoEntrante.paciente.id === this.turnoAlista.paciente[0].id) {
-    //             if (this.cantidadLlamados < 3) {
-    //                 this.cantidadLlamados++;
-    //             }
-
-    //         } else {
-    //             this.cantidadLlamados = 1;
-    //         }
-    //         const index = this.ultimosTurnos.findIndex(obj => obj.paciente[0].id === this.turnoAlista.paciente[0].id);
-    //         if (index === -1) {
-    //             if (turnoEntrante.paciente.id !== this.turnoAlista.paciente[0].id) {
-    //                 this.ultimosTurnos.push(this.turnoAlista);
-    //                 if (this.ultimosTurnos.length === 4) {
-    //                     this.ultimosTurnos.splice(0, 1);
-    //                 }
-    //             }
-
-    //         }
-    //     }
-    //     this.turno.espacioFisico = '';
-    //     if (turnoEntrante) {
-    //         this.audio = true;
-    //         this.turno.paciente.nombre = turnoEntrante.paciente.nombre;
-    //         this.turno.paciente.apellido = turnoEntrante.paciente.apellido;
-    //         if (turnoEntrante.profesional) {
-    //             this.turno.profesional.nombre = turnoEntrante.profesional.nombre;
-    //             this.turno.profesional.apellido = turnoEntrante.profesional.apellido;
-    //         } else {
-    //             this.turno.profesional.nombre = '';
-    //             this.turno.profesional.apellido = '';
-    //         }
-
-    //         if (turnoEntrante.espacioFisico) {
-    //             this.turno.espacioFisico = turnoEntrante.espacioFisico.nombre;
-    //         } else {
-    //             this.turno.espacioFisico = 'Consultar';
-    //         }
-
-
-
-    //         this.turnoAlista = {
-    //             horaInicio: turnoEntrante.horaInicio,
-    //             horaLlamada: turnoEntrante.horaLlamada,
-    //             profesional: [turnoEntrante.profesional],
-    //             paciente: [turnoEntrante.paciente],
-    //             espacioFisico: this.turno.espacioFisico
-    //         };
-    //         this.sinNombre = true;
-
-    //     }
-    //     setTimeout(() => {
-    //         this.audio = false;
-    //     }, 2200);
-
-    //   });
-
-    // });
-
-}
-// prueba() {
-//     this.audio = true;
-//     setTimeout(() => {
-//         this.audio = false;
-//     }, 2200);
-// }
-
-// traeTurnos() {
-
-//     this.pantallaService.getTotalTurnos({ limit: 3 }).subscribe(data => {
-//         this.ultimosTurnos = data;
-//     });
-// }
-
-
-
-
+    }
 }
