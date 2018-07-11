@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
+import * as Wildcard from 'socketio-wildcard';
 
 @Injectable()
 export class WebSocketService {
@@ -17,13 +18,15 @@ export class WebSocketService {
         private authService: AuthService,
         private router: Router
     ) {
+        let patch = Wildcard(io.Manager);
         this.socket = io(AppSettings.WEBSOCKET_ENDPOINT);
+        patch(this.socket);
+
         this.events = new Observable(observer => {
 
-            this.messages.forEach((event) => {
-                this.socket.on(event, (data) => {
-                    observer.next({event, data});
-                });
+            this.socket.on('*', packet => {
+                let data = packet.data;
+                observer.next({ event: data[0], data: data[1] });
             });
 
             return () => {
