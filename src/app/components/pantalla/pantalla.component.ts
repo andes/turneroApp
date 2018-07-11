@@ -89,6 +89,10 @@ export class PantallaComponent implements OnInit {
 
         }
 
+        if (this.ultimosTurnos.length > 20) {
+            this.ultimosTurnos.pop();
+        }
+
 
         setTimeout(() => {
             this.audio = false;
