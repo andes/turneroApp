@@ -19,9 +19,14 @@
 
     <!-- banner -->
     <div id="banner" class="turnero-banner">
-        <video autoplay muted loop style="    width: 100%; height:100%">
+        <video autoplay muted loop style="width: 100%; height:100%" *ngIf="!showVideo">
             <source src="./assets/andes.mp4" type="video/mp4">
         </video>
+
+        <!-- ‘chrome://flags/#autoplay-policy -->
+        <ng-container *ngIf="showVideo">
+            <iframe style="width: 100%; height:100%" [src]="playListUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </ng-container>
     </div>
     <!-- banner -->
 

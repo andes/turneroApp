@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { PantallaService } from '../../services/pantalla/pantalla.service';
 import * as moment from 'moment';
 import { ConfiguracionService } from '../../services/configuracion/configuracionPantalla.service';
 import { WebSocketService } from '../../services/websocket.service';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-pantalla',
@@ -33,6 +34,8 @@ export class PantallaComponent implements OnInit {
         apellido: ''
     };
 
+    public playListUrl;
+    public pantalla;
     public nombrePantalla;
     public fecha;
     public audio = false;
@@ -48,8 +51,15 @@ export class PantallaComponent implements OnInit {
     constructor(
         public ws: WebSocketService,
         public auth: AuthService,
-        public configuracionPantallaService: ConfiguracionService
+        private router: Router,
+        public configuracionPantallaService: ConfiguracionService,
+        public pantallaService: ConfiguracionService,
+        public domSanitizer: DomSanitizer
     ) { }
+
+    get showVideo () {
+        return this.pantalla && this.pantalla.playlist && this.pantalla.playlist.length;
+    }
 
     onTurnoEntrante (turnoEntrante) {
         this.audio = true;
@@ -107,7 +117,8 @@ export class PantallaComponent implements OnInit {
         }, 1000);
         this.fecha = moment(new Date()).format('LL');
 
-        this.ws.auth(this.auth.token);
+        this.ws.setToken(this.auth.token);
+        this.ws.emitAuth();
 
         this.ws.events.subscribe((packet) => {
             switch (packet.event) {
@@ -115,6 +126,16 @@ export class PantallaComponent implements OnInit {
                     this.onTurnoEntrante(packet.data);
                     break;
             }
-        })
+        });
+
+        this.pantallaService.detalle(this.auth.id).subscribe((pantalla) => {
+            this.pantalla = pantalla;
+            this.playListUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/videoseries?list=${this.pantalla.playlist}&autoplay=1`);
+        }, (e) => {
+            if (e.status === 401) {
+                this.auth.setToken(null);
+                this.router.navigate(['/start']);
+            }
+        });
     }
 }

@@ -8,8 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 /* Servicios */
-import { PantallaService } from '../app/services/pantalla/pantalla.service';
-import { TipoPrestacionService } from '../app/services/pantalla/tipoPrestacion.service';
 import { ConfiguracionService } from '../app/services/configuracion/configuracionPantalla.service';
 
 /* Componentes Angular Material*/

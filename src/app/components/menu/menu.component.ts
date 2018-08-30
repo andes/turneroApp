@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { PantallaService } from '../../services/pantalla/pantalla.service';
 import * as moment from 'moment';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfiguracionService } from '../../services/configuracion/configuracionPantalla.service';
 import { AuthService } from '../../services/auth.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-start',
@@ -21,7 +21,7 @@ export class StartComponent implements OnInit {
     }
 
     ingresar() {
-        this.configScreen.post({codigo: this.codigo}).subscribe((body: any) => {
+        this.configScreen.activate({codigo: this.codigo}).subscribe((body: any) => {
             this.auth.setToken(body.token);
             this.router.navigate(['/inicio']);
         });
