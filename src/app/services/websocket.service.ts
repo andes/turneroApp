@@ -18,13 +18,13 @@ export class WebSocketService {
         private authService: AuthService,
         private router: Router
     ) {
-        let patch = Wildcard(io.Manager);
+        const patch = Wildcard(io.Manager);
         this.socket = io(AppSettings.WEBSOCKET_ENDPOINT);
         patch(this.socket);
         this.events = new Subject();
 
         this.socket.on('*', packet => {
-            let data = packet.data;
+            const data = packet.data;
             this.events.next({ event: data[0], data: data[1] });
         });
 

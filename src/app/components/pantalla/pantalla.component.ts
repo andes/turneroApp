@@ -69,14 +69,14 @@ export class PantallaComponent implements OnInit {
         } else {
 
             if (this.turno.id) {
-                let historico = JSON.parse(JSON.stringify(this.turno));
+                const historico = JSON.parse(JSON.stringify(this.turno));
                 this.ultimosTurnos = [historico, ...this.ultimosTurnos];
             }
 
-            let turno = this.ultimosTurnos.find((t) => t.id === turnoEntrante.id);
+            const turno = this.ultimosTurnos.find((t) => t.id === turnoEntrante.id);
             if (turno) {
                 turno.llamados++;
-                this.turno = JSON.parse(JSON.stringify(turno))
+                this.turno = JSON.parse(JSON.stringify(turno));
 
             } else {
                 this.turno.id = turnoEntrante.id;
@@ -124,6 +124,12 @@ export class PantallaComponent implements OnInit {
             switch (packet.event) {
                 case 'mostrar-turno':
                     this.onTurnoEntrante(packet.data);
+                    break;
+                case 'turnero-update':
+                    this.pantalla = packet.data.pantalla;
+                    if (this.pantalla.playlist) {
+                        this.playListUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/videoseries?list=${this.pantalla.playlist}&autoplay=1`);
+                    }
                     break;
             }
         });

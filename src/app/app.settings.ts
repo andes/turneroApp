@@ -6,5 +6,5 @@ export class AppSettings {
 
     public static get WEBSOCKET_ENDPOINT(): string {
         return environment.WEBSOCKET;
-     }
+    }
 }

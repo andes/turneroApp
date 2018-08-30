@@ -19,7 +19,7 @@ export class AuthService {
                 // Guarda el token para futura referencia
                 window.sessionStorage.setItem('jwt', this.token);
                 // Obtiene datos del usuario y permisos desde el token
-                let payload = this.jwtHelper.decodeToken(this.token);
+                const payload = this.jwtHelper.decodeToken(this.token);
                 this.id = payload.app.id;
             }
         } catch (e) {

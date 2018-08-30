@@ -12,7 +12,7 @@ import { ConfiguracionService } from '../app/services/configuracion/configuracio
 
 /* Componentes Angular Material*/
 import { PantallaComponent } from './components/pantalla/pantalla.component';
-import { MenuComponent } from './components/menu/menu.component'
+import { MenuComponent } from './components/menu/menu.component';
 import { MatIconModule } from '@angular/material/icon';
 import { routing, appRoutingProviders } from './app.routing';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';

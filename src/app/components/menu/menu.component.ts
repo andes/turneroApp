@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy () {
-        clearInterval(this.timeoutId)
+        clearInterval(this.timeoutId);
     }
 
 
