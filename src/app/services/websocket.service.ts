@@ -1,6 +1,6 @@
 import { AppSettings } from './../app.settings';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import * as io from 'socket.io-client';
 import { AuthService } from './auth.service';
 import { Router } from '@angular/router';
