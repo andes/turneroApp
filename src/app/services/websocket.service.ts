@@ -1,4 +1,4 @@
-import { AppSettings } from './../app.settings';
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import * as io from 'socket.io-client';
@@ -19,7 +19,8 @@ export class WebSocketService {
         private router: Router
     ) {
         const patch = Wildcard(io.Manager);
-        this.socket = io(AppSettings.WEBSOCKET_ENDPOINT);
+        this.socket = io(environment.WEBSOCKET, {  path: '/ws',transports: ['websocket', 'polling'] });
+        
         patch(this.socket);
         this.events = new Subject();
 

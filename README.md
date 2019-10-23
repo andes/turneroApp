@@ -1,6 +1,6 @@
 # TurneroApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
+Aplicación para visualizar la llamada de los turnos. Muestra los ultimos llamados. Utiliza Angular 8.
 
 ## Development server
 
