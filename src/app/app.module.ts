@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 /* Componentes */
@@ -15,7 +14,6 @@ import { PantallaComponent } from './components/pantalla/pantalla.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { MatIconModule } from '@angular/material/icon';
 import { routing, appRoutingProviders } from './app.routing';
-import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import { AuthService } from './services/auth.service';
 import { RoutingGuard } from './app.ruotings-guard.class';
 import { StartComponent } from './components/start/start.component';
@@ -32,10 +30,8 @@ import { WebSocketService } from './services/websocket.service';
         BrowserModule,
         MatIconModule,
         FormsModule,
-        HttpModule,
         routing,
-        HttpClientModule,
-        AngularMultiSelectModule
+        HttpClientModule
     ],
     providers: [
         ConfiguracionService,

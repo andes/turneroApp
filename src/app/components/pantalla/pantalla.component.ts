@@ -80,7 +80,7 @@ export class PantallaComponent implements OnInit {
 
             } else {
                 this.turno.id = turnoEntrante.id;
-                this.turno.paciente.nombre = turnoEntrante.paciente.nombre;
+                this.turno.paciente.nombre = turnoEntrante.paciente.alias ? turnoEntrante.paciente.alias : turnoEntrante.paciente.nombre;
                 this.turno.paciente.apellido = turnoEntrante.paciente.apellido;
                 if (turnoEntrante.profesional) {
                     this.turno.profesional.nombre = turnoEntrante.profesional.nombre;

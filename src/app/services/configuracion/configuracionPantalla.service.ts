@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AppSettings } from './../../app.settings';
 import { AuthService } from '../auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ConfiguracionService {
 
-    private activationURL = AppSettings.API_ENDPOINT + '/modules/turnero/pantalla';
+    private activationURL = environment.API + '/modules/turnero/pantalla';
     constructor(private http: HttpClient, private auth: AuthService) { }
 
     activate(params: any) {

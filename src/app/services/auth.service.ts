@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { JwtHelper } from 'angular2-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 @Injectable()
 export class AuthService {
-    private jwtHelper = new JwtHelper();
+    private jwtHelper = new JwtHelperService();
     public token = '';
     public id: String;
 
