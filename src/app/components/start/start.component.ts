@@ -4,27 +4,27 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-start',
-    templateUrl: './start.html',
-    styleUrls: ['start.scss']
+  selector: 'app-start',
+  templateUrl: './start.html',
+  styleUrls: ['start.scss']
 })
 export class StartComponent implements OnInit {
-    public codigo = '';
+  public codigo = '';
 
-    constructor(
-        public configScreen: ConfiguracionService,
-        private auth: AuthService,
-        private router: Router
-    ) { }
+  constructor(
+    public configScreen: ConfiguracionService,
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
-    ngOnInit() {
-    }
+  ngOnInit() {
+  }
 
-    ingresar() {
-        this.configScreen.activate({codigo: this.codigo}).subscribe((body: any) => {
-            this.auth.setToken(body.token);
-            this.router.navigate(['/inicio']);
-        });
-    }
+  ingresar() {
+    this.configScreen.activate({ codigo: this.codigo, tipo: 'turnero' }).subscribe((body: any) => {
+      this.auth.setToken(body.token);
+      this.router.navigate(['/inicio']);
+    });
+  }
 
 }
