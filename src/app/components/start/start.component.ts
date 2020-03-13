@@ -21,7 +21,7 @@ export class StartComponent implements OnInit {
     }
 
     ingresar() {
-        this.configScreen.activate({codigo: this.codigo}).subscribe((body: any) => {
+        this.configScreen.activate({ codigo: this.codigo, tipo: 'turnero' }).subscribe((body: any) => {
             this.auth.setToken(body.token);
             this.router.navigate(['/inicio']);
         });
